@@ -105,7 +105,10 @@ export const EditablePreview = forwardRef<EditablePreviewProps, "span">(
     const { getPreviewProps } = useEditableContext()
     const styles = useStyles()
 
-    const previewProps = getPreviewProps(props, ref) as HTMLChakraProps<"span">
+    const previewPropsFromEditable = getPreviewProps(props, ref) as HTMLChakraProps<"span">
+    const previewProps = (props.children !== undefined)
+      ? Object.assign(previewPropsFromEditable, {children: props.children})
+      : previewPropsFromEditable;
     const _className = cx("chakra-editable__preview", props.className)
 
     return (
